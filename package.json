@@ -1,9 +1,9 @@
 {
   "name": "backend-starter-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CLI to create backend starter project",
   "bin": {
-    "backend-starter": "./bin/index.js"
+    "backend-starter": "bin/index.js"
   },
   "main": "index.js",
   "scripts": {
