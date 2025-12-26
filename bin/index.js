@@ -1,23 +1,42 @@
 #!/usr/bin/env node
 
-const { execSync } = require("child_process");
+import fs from "fs";
+import path from "path";
+import { execSync } from "child_process";
 
 const projectName = process.argv[2];
 
 if (!projectName) {
-    console.log("❌ Please provide a project name");
-    console.log("👉 Example: npx backend-starter my-project");
+    console.error("❌ Please provide a project name");
     process.exit(1);
 }
 
-console.log("🚀 Creating backend project:", projectName);
-
-execSync(
-    `git clone https://github.com/FrontifybyHB/backend-starter.git ${projectName}`,
-    { stdio: "inherit" }
+const currentDir = process.cwd();
+const targetDir = path.join(currentDir, projectName);
+const templateDir = path.join(
+    new URL(import.meta.url).pathname,
+    "../../templates/backend"
 );
 
-console.log("✅ Backend starter downloaded successfully");
-console.log("👉 cd", projectName);
-console.log("👉 npm install");
-console.log("👉 npm run dev");
+if (fs.existsSync(targetDir)) {
+    console.error("❌ Folder already exists");
+    process.exit(1);
+}
+
+// Copy template
+fs.cpSync(templateDir, targetDir, { recursive: true });
+
+console.log("✅ Project created:", projectName);
+
+// Init fresh git
+execSync("git init", { cwd: targetDir, stdio: "inherit" });
+
+// Install deps
+execSync("npm install", { cwd: targetDir, stdio: "inherit" });
+
+console.log(`
+🚀 Backend Starter Ready!
+
+cd ${projectName}
+npm run dev
+`);
