@@ -3,40 +3,57 @@
 import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
+import { fileURLToPath } from "url";
 
+/* ------------------ Resolve __dirname in ESM ------------------ */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/* ------------------ Get project name ------------------ */
 const projectName = process.argv[2];
 
 if (!projectName) {
-    console.error("❌ Please provide a project name");
-    process.exit(1);
+  console.error("❌ Please provide a project name");
+  process.exit(1);
 }
 
-const currentDir = process.cwd();
-const targetDir = path.join(currentDir, projectName);
+/* ------------------ Paths ------------------ */
+const targetDir = path.join(process.cwd(), projectName);
+
+// 👇 THIS MUST MATCH YOUR REAL TEMPLATE FOLDER NAME
 const templateDir = path.join(
-    new URL(import.meta.url).pathname,
-    "../../templates/backend"
+  __dirname,
+  "../templates/backend/my-backend-template"
 );
 
-if (fs.existsSync(targetDir)) {
-    console.error("❌ Folder already exists");
-    process.exit(1);
+/* ------------------ Validate template ------------------ */
+if (!fs.existsSync(templateDir)) {
+  console.error("❌ Template folder not found at:");
+  console.error(templateDir);
+  process.exit(1);
 }
 
-// Copy template
+if (fs.existsSync(targetDir)) {
+  console.error("❌ Folder already exists:", projectName);
+  process.exit(1);
+}
+
+/* ------------------ Copy template ------------------ */
 fs.cpSync(templateDir, targetDir, { recursive: true });
 
-console.log("✅ Project created:", projectName);
+/* ------------------ Init git & install ------------------ */
+try {
+  execSync("git init", { cwd: targetDir, stdio: "inherit" });
+  execSync("npm install", { cwd: targetDir, stdio: "inherit" });
+} catch (err) {
+  console.warn("⚠️ Git or npm install failed. You can run manually.");
+}
 
-// Init fresh git
-execSync("git init", { cwd: targetDir, stdio: "inherit" });
-
-// Install deps
-execSync("npm install", { cwd: targetDir, stdio: "inherit" });
-
+/* ------------------ Done ------------------ */
 console.log(`
-🚀 Backend Starter Ready!
+✅ Backend project created successfully!
 
-cd ${projectName}
-npm run dev
+Next steps:
+  cd ${projectName}
+  npm run dev
 `);
