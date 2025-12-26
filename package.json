@@ -1,6 +1,6 @@
 {
   "name": "@frontifybyhb/backend-starter-cli",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "CLI to create a clean and independent backend starter project",
   "license": "ISC",
   "type": "module",
