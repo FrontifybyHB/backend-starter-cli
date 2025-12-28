@@ -1,6 +1,6 @@
 {
   "name": "create-frontify-backend",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "CLI to create a clean and independent backend starter project",
   "license": "ISC",
   "type": "module",
