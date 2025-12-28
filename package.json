@@ -1,9 +1,9 @@
 {
-  "name": "create-frontify-backend",
+  
+  "name": "express-backend-kit",
   "version": "1.0.12",
-  "description": "CLI to create a clean and independent backend starter project",
-  "license": "ISC",
   "type": "module",
+  "description": "A CLI tool to generate a boilerplate for a Node.js/Express backend project.",
   "bin": {
     "backend-starter": "bin/index.js"
   },

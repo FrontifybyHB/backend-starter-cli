@@ -5,11 +5,11 @@ import path from "path";
 import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 
-/* ------------------ Resolve __dirname in ESM ------------------ */
+/* Resolve __dirname */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-/* ------------------ Get project name ------------------ */
+/* Get project name */
 const projectName = process.argv[2];
 
 if (!projectName) {
@@ -17,19 +17,16 @@ if (!projectName) {
   process.exit(1);
 }
 
-/* ------------------ Paths ------------------ */
+/* Paths */
 const targetDir = path.join(process.cwd(), projectName);
-
-// 👇 THIS MUST MATCH YOUR REAL TEMPLATE FOLDER NAME
 const templateDir = path.join(
   __dirname,
   "../templates/backend/my-backend-template"
 );
 
-/* ------------------ Validate template ------------------ */
+/* Validations */
 if (!fs.existsSync(templateDir)) {
-  console.error("❌ Template folder not found at:");
-  console.error(templateDir);
+  console.error("❌ Template not found");
   process.exit(1);
 }
 
@@ -38,20 +35,24 @@ if (fs.existsSync(targetDir)) {
   process.exit(1);
 }
 
-/* ------------------ Copy template ------------------ */
+/* Copy template */
 fs.cpSync(templateDir, targetDir, { recursive: true });
 
-/* ------------------ Init git & install ------------------ */
+/* Initialize git */
 try {
-  execSync("git init", { cwd: targetDir, stdio: "inherit" });
+  execSync("git init", { cwd: targetDir, stdio: "ignore" });
+} catch {}
+
+/* Install dependencies */
+try {
+  console.log("📦 Installing dependencies...");
   execSync("npm install", { cwd: targetDir, stdio: "inherit" });
-} catch (err) {
-  console.warn("⚠️ Git or npm install failed. You can run manually.");
+} catch {
+  console.warn("⚠️ npm install failed. Run it manually.");
 }
 
-/* ------------------ Done ------------------ */
 console.log(`
-✅ Backend project created successfully!
+✅ Project created successfully!
 
 Next steps:
   cd ${projectName}
