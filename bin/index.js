@@ -5,11 +5,11 @@ import path from "path";
 import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 
-/* Resolve __dirname */
+/* Resolve __dirname for ESM */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-/* Get project name */
+/* Project name from CLI */
 const projectName = process.argv[2];
 
 if (!projectName) {
@@ -21,40 +21,43 @@ if (!projectName) {
 const targetDir = path.join(process.cwd(), projectName);
 const templateDir = path.join(
   __dirname,
-  "../templates/backend/my-backend-template"
+  "../templates/backend/backend-starter-template"
 );
 
-/* Validations */
+/* Validate */
 if (!fs.existsSync(templateDir)) {
   console.error("❌ Template not found");
   process.exit(1);
 }
 
 if (fs.existsSync(targetDir)) {
-  console.error("❌ Folder already exists:", projectName);
+  console.error("❌ Folder already exists");
   process.exit(1);
 }
 
-/* Copy template */
+/* Copy Template */
 fs.cpSync(templateDir, targetDir, { recursive: true });
 
-/* Initialize git */
-try {
-  execSync("git init", { cwd: targetDir, stdio: "ignore" });
-} catch {}
+console.log("📦 Backend starter copied");
 
 /* Install dependencies */
+console.log("📥 Installing dependencies...");
+execSync("npm install", { cwd: targetDir, stdio: "inherit" });
+
+/* Git init (optional but professional) */
 try {
-  console.log("📦 Installing dependencies...");
-  execSync("npm install", { cwd: targetDir, stdio: "inherit" });
+  execSync("git init", { cwd: targetDir });
+  console.log("🔧 Git initialized");
 } catch {
-  console.warn("⚠️ npm install failed. Run it manually.");
+  console.log("⚠️ Git not initialized");
 }
 
+/* Success */
 console.log(`
-✅ Project created successfully!
+✅ Backend setup complete!
 
-Next steps:
-  cd ${projectName}
-  npm run dev
+👉 Next steps:
+cd ${projectName}
+rm -rf .git
+npm run dev
 `);
