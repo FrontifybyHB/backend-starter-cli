@@ -5,56 +5,51 @@ import path from "path";
 import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 
-/* Resolve __dirname for ESM */
+/* ------------------ Resolve __dirname (ESM) ------------------ */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-/* Project name from CLI */
-const projectName = process.argv[2];
+/* ------------------ Read CLI Args ------------------ */
+const args = process.argv.slice(2);
+const projectName = args[0] || "express-backend";
 
-if (!projectName) {
-  console.error("❌ Please provide a project name");
-  process.exit(1);
-}
-
-/* Paths */
+/* ------------------ Paths ------------------ */
 const targetDir = path.join(process.cwd(), projectName);
 const templateDir = path.join(
   __dirname,
   "../templates/backend/backend-starter-template"
 );
 
-/* Validate */
-if (!fs.existsSync(templateDir)) {
-  console.error("❌ Template not found");
-  process.exit(1);
-}
-
+/* ------------------ Validations ------------------ */
 if (fs.existsSync(targetDir)) {
-  console.error("❌ Folder already exists");
+  console.error("❌ Folder already exists:", projectName);
   process.exit(1);
 }
 
-/* Copy Template */
+if (!fs.existsSync(templateDir)) {
+  console.error("❌ Express template not found");
+  process.exit(1);
+}
+
+/* ------------------ Copy Template ------------------ */
 fs.cpSync(templateDir, targetDir, { recursive: true });
+console.log("📦 Express backend template copied");
 
-console.log("📦 Backend starter copied");
-
-/* Install dependencies */
+/* ------------------ Install Dependencies ------------------ */
 console.log("📥 Installing dependencies...");
 execSync("npm install", { cwd: targetDir, stdio: "inherit" });
 
-/* Git init (optional but professional) */
+/* ------------------ Git Init (Optional) ------------------ */
 try {
-  execSync("git init", { cwd: targetDir });
+  execSync("git init", { cwd: targetDir, stdio: "ignore" });
   console.log("🔧 Git initialized");
 } catch {
   console.log("⚠️ Git not initialized");
 }
 
-/* Success */
+/* ------------------ Success Message ------------------ */
 console.log(`
-✅ Backend setup complete!
+✅ Express backend setup complete!
 
 👉 Next steps:
 cd ${projectName}
