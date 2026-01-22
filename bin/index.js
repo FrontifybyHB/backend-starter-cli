@@ -5,24 +5,23 @@ import path from "path";
 import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 
-/* ------------------ Resolve __dirname (ESM) ------------------ */
+/* Resolve __dirname (ESM safe) */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-/* ------------------ Read CLI Args ------------------ */
-const args = process.argv.slice(2);
-const projectName = args[0] || "express-backend";
+/* Read only ONE parameter */
+const projectName = process.argv[2] || "express-backend";
 
-/* ------------------ Paths ------------------ */
-const targetDir = path.join(process.cwd(), projectName);
-const templateDir = path.join(
+/* Paths */
+const targetDir = path.resolve(process.cwd(), projectName);
+const templateDir = path.resolve(
   __dirname,
   "../templates/backend/backend-starter-template"
 );
 
-/* ------------------ Validations ------------------ */
+/* Validations */
 if (fs.existsSync(targetDir)) {
-  console.error("❌ Folder already exists:", projectName);
+  console.error(`❌ Folder already exists: ${projectName}`);
   process.exit(1);
 }
 
@@ -31,15 +30,15 @@ if (!fs.existsSync(templateDir)) {
   process.exit(1);
 }
 
-/* ------------------ Copy Template ------------------ */
+/* Copy Template */
 fs.cpSync(templateDir, targetDir, { recursive: true });
 console.log("📦 Express backend template copied");
 
-/* ------------------ Install Dependencies ------------------ */
+/* Install dependencies */
 console.log("📥 Installing dependencies...");
 execSync("npm install", { cwd: targetDir, stdio: "inherit" });
 
-/* ------------------ Git Init (Optional) ------------------ */
+/* Git init (optional) */
 try {
   execSync("git init", { cwd: targetDir, stdio: "ignore" });
   console.log("🔧 Git initialized");
@@ -47,7 +46,7 @@ try {
   console.log("⚠️ Git not initialized");
 }
 
-/* ------------------ Success Message ------------------ */
+/* Success */
 console.log(`
 ✅ Express backend setup complete!
 
