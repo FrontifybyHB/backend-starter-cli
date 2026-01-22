@@ -9,8 +9,9 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-/* Read only ONE parameter */
-const projectName = process.argv[2] || "express-backend";
+/* Read project name from arguments, skip any flags */
+const args = process.argv.slice(2);
+const projectName = args.find(arg => !arg.startsWith('-')) || "express-backend";
 
 /* Paths */
 const targetDir = path.resolve(process.cwd(), projectName);
