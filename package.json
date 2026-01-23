@@ -1,8 +1,11 @@
 {
-  "name": "create-express-backend-hb-cli",
-  "version": "1.4.0",
-  "description": "Backend starter CLI for Node.js & Express with multi-framework support",
-  "bin": { "backend-starter": "./bin/index.js" },
+  "name": "backend-starter-hb",
+  "version": "1.4.1",
+  "description": "🚀 Cross-platform backend starter CLI for Express, Next.js, Django & Spring Boot",
+  "bin": {
+    "backend-starter-hb": "./bin/index.js",
+    "backend-starter": "./bin/index.js"
+  },
   "type": "module",
   "files": [ "bin", "templates" ],
   "keywords": [
@@ -17,7 +20,11 @@
     "cross-platform",
     "windows",
     "mac",
-    "linux"
+    "linux",
+    "scaffold",
+    "boilerplate",
+    "template",
+    "backend-starter"
   ],
   "author": "Himanshu Bhindoriya",
   "license": "MIT",
@@ -28,7 +35,7 @@
   "bugs": {
     "url": "https://github.com/work-by-himanshu/backend-starter-cli/issues"
   },
-  "homepage": "https://docs.testdog.in",
+  "homepage": "https://backend-starter-hb.netlify.app",
   "scripts": {
     "test": "node bin/index.js test-project --express && rm -rf test-project",
     "test:windows": "node bin/index.js test-project --express && rmdir /s /q test-project"

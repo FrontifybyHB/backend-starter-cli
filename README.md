@@ -1,8 +1,8 @@
-# 🚀 Backend Starter CLI
+# 🚀 Backend Starter HB
 
 A powerful, cross-platform CLI tool to quickly scaffold backend projects with industry-standard templates for **Express**, **Next.js**, **Django**, and **Spring Boot**.
 
-[![npm version](https://img.shields.io/npm/v/create-express-backend-hb-cli.svg)](https://www.npmjs.com/package/create-express-backend-hb-cli)
+[![npm version](https://img.shields.io/npm/v/backend-starter-hb.svg)](https://www.npmjs.com/package/backend-starter-hb)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg)](https://nodejs.org/)
 
@@ -24,7 +24,7 @@ A powerful, cross-platform CLI tool to quickly scaffold backend projects with in
 ### Create a new Express backend project:
 
 ```bash
-npx create-express-backend-hb-cli my-backend --express
+npx backend-starter-hb my-backend --express
 cd my-backend
 npm run dev
 ```
@@ -35,14 +35,20 @@ That's it! Your backend is ready to go. 🎉
 
 ## 📦 Installation
 
-### Option 1: Use with npx (Recommended)
+### Option 1: Use with npx (Recommended - No Installation Required)
 ```bash
-npx create-express-backend-hb-cli <project-name> [--express|--nextjs|--django|--spring]
+npx backend-starter-hb <project-name> [--express|--nextjs|--django|--spring]
 ```
 
 ### Option 2: Global Installation
 ```bash
-npm install -g create-express-backend-hb-cli
+npm install -g backend-starter-hb
+backend-starter-hb <project-name> [--express|--nextjs|--django|--spring]
+```
+
+### Option 3: Using the shorter alias
+```bash
+# After global installation, you can also use:
 backend-starter <project-name> [--express|--nextjs|--django|--spring]
 ```
 
@@ -52,29 +58,29 @@ backend-starter <project-name> [--express|--nextjs|--django|--spring]
 
 ### Basic Syntax:
 ```bash
-npx create-express-backend-hb-cli <project-name> [framework-flag]
+npx backend-starter-hb <project-name> [framework-flag]
 ```
 
 ### Examples:
 
 #### Express Backend (Default)
 ```bash
-npx create-express-backend-hb-cli my-api --express
+npx backend-starter-hb my-api --express
 ```
 
 #### Next.js Backend (Coming Soon)
 ```bash
-npx create-express-backend-hb-cli my-nextjs-app --nextjs
+npx backend-starter-hb my-nextjs-app --nextjs
 ```
 
 #### Django Backend (Coming Soon)
 ```bash
-npx create-express-backend-hb-cli my-django-api --django
+npx backend-starter-hb my-django-api --django
 ```
 
 #### Spring Boot Backend (Coming Soon)
 ```bash
-npx create-express-backend-hb-cli my-spring-api --spring
+npx backend-starter-hb my-spring-api --spring
 ```
 
 ---
@@ -144,7 +150,7 @@ npm run dev
 
 ## 📖 Documentation
 
-For detailed documentation, visit: [https://docs.testdog.in](https://docs.testdog.in)
+For detailed documentation, visit: [https://backend-starter-hb.netlify.app](https://backend-starter-hb.netlify.app)
 
 ---
 
@@ -162,7 +168,13 @@ For detailed documentation, visit: [https://docs.testdog.in](https://docs.testdo
 ### Issue: Windows-specific errors
 **Solution:** This has been fixed in v1.4.0+. Make sure you're using the latest version:
 ```bash
-npm install -g create-express-backend-hb-cli@latest
+npm install -g backend-starter-hb@latest
+```
+
+### Issue: Old package name not working
+**Solution:** The package has been renamed from `create-express-backend-hb-cli` to `backend-starter-hb`. Use:
+```bash
+npx backend-starter-hb <project-name> --express
 ```
 
 ---
