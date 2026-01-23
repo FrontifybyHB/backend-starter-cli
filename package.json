@@ -1,12 +1,40 @@
 {
   "name": "create-express-backend-hb-cli",
-  "version": "1.3.1",
-  "description": "Backend starter CLI for Node.js & Express",
+  "version": "1.4.0",
+  "description": "Backend starter CLI for Node.js & Express with multi-framework support",
   "bin": { "backend-starter": "./bin/index.js" },
   "type": "module",
   "files": [ "bin", "templates" ],
-  "keywords": [ "backend", "starter", "cli", "nodejs" ],
+  "keywords": [
+    "backend",
+    "starter",
+    "cli",
+    "nodejs",
+    "express",
+    "nextjs",
+    "django",
+    "spring",
+    "cross-platform",
+    "windows",
+    "mac",
+    "linux"
+  ],
   "author": "Himanshu Bhindoriya",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/work-by-himanshu/backend-starter-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/work-by-himanshu/backend-starter-cli/issues"
+  },
+  "homepage": "https://docs.testdog.in",
+  "scripts": {
+    "test": "node bin/index.js test-project --express && rm -rf test-project",
+    "test:windows": "node bin/index.js test-project --express && rmdir /s /q test-project"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "dependencies": {}
 }
